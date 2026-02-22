@@ -1,6 +1,8 @@
 # AiList MCP Server
 
-MCP server for [AiList](https://hifriendbot.com/ai-list/) — the directory Ai agents read. Search, browse, and submit Ai projects directly from Claude Code.
+**"List my project on AiList"** — one sentence to your AI agent and your project is discoverable by thousands of AI coding assistants.
+
+AiList MCP connects Claude Code to a [curated directory of Ai projects](https://hifriendbot.com/ai-list/). Search MCP servers, CLI tools, libraries, and APIs — or submit your own project without leaving your terminal.
 
 ## Quick Setup
 
@@ -40,6 +42,16 @@ claude mcp add ailist -- npx -y ailist-mcp
   }
 }
 ```
+
+Get your free API key at [hifriendbot.com/ai-list/submit/](https://hifriendbot.com/ai-list/submit/)
+
+## What Can Your Agent Do?
+
+**List your project** — Tell your agent "list my project on AiList" and it reads your repo, fills in the details, and submits. Your project goes live in minutes after auto-review.
+
+**Discover tools** — Your agent searches the directory to find the right MCP server, library, or CLI tool for the job. No more browsing — just ask.
+
+**See what's trending** — Find out what Ai projects are gaining traction this week, sorted by star velocity.
 
 ## Environment Variables
 
@@ -112,7 +124,7 @@ No parameters. Returns total projects, added this week, category breakdowns.
 
 ### submit_project
 
-Submit a new project to the directory. Requires `AILIST_API_KEY`.
+Submit your project to the directory. Requires `AILIST_API_KEY`.
 
 ```
 submit_project(
@@ -139,14 +151,15 @@ submit_project(
 
 ## Examples
 
+**List your project:**
+```
+"Hey Claude, list my project on AiList"
+```
+Your agent reads your repo and calls `submit_project` with the right details.
+
 **Find MCP servers:**
 ```
 search_projects(query: "memory", category: "mcp-server")
-```
-
-**Browse newest projects:**
-```
-search_projects(sort: "newest", per_page: 10)
 ```
 
 **See what's trending:**
@@ -154,27 +167,14 @@ search_projects(sort: "newest", per_page: 10)
 get_trending(limit: 5)
 ```
 
-**Get project details:**
+**Browse by technology:**
 ```
-get_project(slug: "cogmemai-mcp")
-```
-
-**Submit your project:**
-```
-submit_project(
-  name: "My MCP Server",
-  tagline: "Gives Claude superpowers",
-  github_url: "https://github.com/me/my-mcp",
-  npm_package: "my-mcp-server",
-  category: "mcp-server",
-  tags: "mcp, memory, ai",
-  built_with: "Node.js, TypeScript"
-)
+search_projects(built_with: "Claude Code", sort: "stars")
 ```
 
 ## About AiList
 
-AiList is a curated directory of Ai projects at [hifriendbot.com/ai-list/](https://hifriendbot.com/ai-list/). It indexes MCP servers, CLI tools, libraries, web apps, APIs, plugins, models, datasets, and agents.
+[AiList](https://hifriendbot.com/ai-list/) is a curated directory of Ai projects. Every listing gets its own SEO-indexed page, and the REST API is 100% public — making your project discoverable by both humans and AI agents.
 
 ## License
 
