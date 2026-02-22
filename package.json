@@ -1,0 +1,45 @@
+{
+  "name": "ailist-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for AiList — search and discover Ai projects from Claude Code",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "ailist-mcp": "src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ailist",
+    "ai",
+    "directory",
+    "claude-code",
+    "projects",
+    "search",
+    "ai-tools",
+    "ai-agent"
+  ],
+  "author": "HiFriendbot (https://hifriendbot.com)",
+  "license": "MIT",
+  "homepage": "https://hifriendbot.com/ai-list/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hifriendbot/ailist-mcp"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.4",
+    "zod": "^3.24.0"
+  }
+}
