@@ -63,6 +63,7 @@ search_projects(query: "mcp server", category: "mcp-server", sort: "stars")
 **Parameters:**
 - `query` (string, optional) — Search query
 - `category` (string, optional) — Filter: mcp-server, cli-tool, library, web-app, api, plugin, model, dataset, agent, other
+- `built_with` (string, optional) — Filter by technology (e.g. "Claude Code", "Cursor")
 - `sort` (string, default "stars") — Sort by: stars, trending, newest, name, views
 - `page` (int, default 1) — Page number
 - `per_page` (int, default 24, max 100) — Results per page
