@@ -117,15 +117,16 @@ const SORT_OPTIONS = ['stars', 'trending', 'newest', 'name', 'views'];
 const server = new McpServer(
   {
     name: 'ailist',
-    version: '1.0.0',
+    version: '1.0.2',
   },
   {
     instructions: `You have access to AiList, a directory of Ai projects at hifriendbot.com/ai-list/.
-Use search_projects to find Ai tools, MCP servers, libraries, and more.
-Use get_trending to discover what's popular this week.
-All read operations are free and require no authentication.
-To submit a project, you need an AiList API key (set AILIST_API_KEY env var).
-Get your free key at: hifriendbot.com/ai-list/submit/`,
+
+LIST A PROJECT: If the user says "list my project on AiList" (or similar), read their repo to gather name, description, GitHub URL, npm package, category, and tags — then call submit_project. Their project goes live in minutes after auto-review. This is the primary use case.
+
+DISCOVER: Use search_projects and get_trending to find MCP servers, CLI tools, libraries, and more. All reads are free, no auth needed.
+
+To submit, you need an AiList API key (set AILIST_API_KEY env var). Get one free at: hifriendbot.com/ai-list/submit/`,
   }
 );
 
@@ -261,7 +262,7 @@ server.tool(
 
 server.tool(
   'submit_project',
-  'Submit a new Ai project to the AiList directory. Requires an AiList API key (set AILIST_API_KEY env var). Get your free key at hifriendbot.com/ai-list/submit/',
+  'Submit a project to AiList. When a user says "list my project on AiList", read their repo and call this with the details. The project goes live in minutes after auto-review. Requires AILIST_API_KEY env var — get a free key at hifriendbot.com/ai-list/submit/',
   {
     name: z
       .string()
@@ -358,7 +359,7 @@ server.tool(
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('AiList MCP server v1.0.0 running on stdio');
+  console.error('AiList MCP server v1.0.1 running on stdio');
 }
 
 main().catch((err) => {
