@@ -1,0 +1,16 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      ailistApiKey:
+        type: string
+        description: "Optional AiList API key for submitting projects. Get one at https://hifriendbot.com/ai-list/"
+  commandFunction: |-
+    (config) => ({
+      command: 'npx',
+      args: ['-y', 'ailist-mcp'],
+      env: {
+        ...(config.ailistApiKey ? { AILIST_API_KEY: config.ailistApiKey } : {})
+      }
+    })
