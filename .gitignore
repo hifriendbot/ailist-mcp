@@ -1,3 +1,5 @@
 node_modules/
 *.tgz
 .DS_Store
+.mcpregistry_github_token
+.mcpregistry_registry_token

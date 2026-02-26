@@ -1,6 +1,6 @@
 {
   "name": "ailist-mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "mcpName": "io.github.hifriendbot/ailist-mcp",
   "description": "MCP server for AiList — search and discover Ai projects from Claude Code",
   "type": "module",

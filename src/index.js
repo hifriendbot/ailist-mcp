@@ -54,8 +54,8 @@ async function api(path, method = 'GET', params = null) {
     }
   }
 
-  // POST requests: send params as JSON body
-  if (params && method === 'POST') {
+  // POST/PUT requests: send params as JSON body
+  if (params && (method === 'POST' || method === 'PUT')) {
     options.body = JSON.stringify(params);
   }
 
@@ -354,12 +354,95 @@ server.tool(
   }
 );
 
+// ─── 7. update_project ──────────────────────────────────────
+
+server.tool(
+  'update_project',
+  'Update an existing project on AiList. You must own the project (submitted with the same API key). Use this to keep listings current when new features ship or versions change. Requires AILIST_API_KEY env var.',
+  {
+    slug: z
+      .string()
+      .min(1)
+      .describe('Project slug to update (e.g. "cogmemai")'),
+    tagline: z
+      .string()
+      .max(300)
+      .optional()
+      .describe('Updated tagline'),
+    description: z
+      .string()
+      .max(5000)
+      .optional()
+      .describe('Updated description (supports markdown)'),
+    url: z
+      .string()
+      .url()
+      .optional()
+      .describe('Updated homepage URL'),
+    github_url: z
+      .string()
+      .url()
+      .optional()
+      .describe('Updated GitHub repository URL'),
+    npm_package: z
+      .string()
+      .max(200)
+      .optional()
+      .describe('Updated npm package name'),
+    pypi_package: z
+      .string()
+      .max(200)
+      .optional()
+      .describe('Updated PyPI package name'),
+    category: z
+      .enum(CATEGORIES)
+      .optional()
+      .describe('Updated category'),
+    tags: z
+      .string()
+      .max(500)
+      .optional()
+      .describe('Updated comma-separated tags'),
+    built_with: z
+      .string()
+      .max(500)
+      .optional()
+      .describe('Updated technologies used'),
+  },
+  async ({ slug, tagline, description, url, github_url, npm_package, pypi_package, category, tags, built_with }) => {
+    if (!API_KEY) {
+      return errorResult(
+        'AILIST_API_KEY environment variable is not set. ' +
+        'Get your free API key at https://hifriendbot.com/ai-list/submit/'
+      );
+    }
+
+    try {
+      const body = {};
+      if (tagline) body.tagline = tagline;
+      if (description) body.description = description;
+      if (url) body.url = url;
+      if (github_url) body.github_url = github_url;
+      if (npm_package) body.npm_package = npm_package;
+      if (pypi_package) body.pypi_package = pypi_package;
+      if (category) body.category = category;
+      if (tags) body.tags = tags;
+      if (built_with) body.built_with = built_with;
+
+      const result = await api(`/projects/${encodeURIComponent(slug)}`, 'PUT', body);
+      return textResult(result);
+    } catch (err) {
+      return errorResult(err.message);
+    }
+  }
+);
+
 // ── Start server ──────────────────────────────────────────────
 
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('AiList MCP server v1.0.1 running on stdio');
+  console.error('AiList MCP server v1.0.4 running on stdio');
 }
 
 main().catch((err) => {
